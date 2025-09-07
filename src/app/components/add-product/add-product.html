@@ -1,0 +1,94 @@
+<div class="form-container">
+  <div class="form-header">
+    <h2 class="form-title">Add New Product</h2>
+  </div>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <!-- Product Name Field -->
+    <div class="form-group">
+      <label for="name" class="form-label">Product Name</label>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        formControlName="name"
+        [class.error]="isFieldInvalid('name')"
+        placeholder="Enter product name"
+      />
+
+      <div class="error-message" *ngIf="isFieldInvalid('name')">
+        <div *ngIf="hasError('name', 'required')">Product name is required</div>
+        <div *ngIf="hasError('name', 'minlength')">Product name must be at least 3 characters</div>
+      </div>
+    </div>
+
+    <!-- Price Field -->
+    <div class="form-group">
+      <label for="price" class="form-label">Price</label>
+      <input
+        type="number"
+        id="price"
+        class="form-control"
+        formControlName="price"
+        [class.error]="isFieldInvalid('price')"
+        placeholder="Enter price"
+        step="0.01"
+        min="0"
+      />
+
+      <div class="error-message" *ngIf="isFieldInvalid('price')">
+        <div *ngIf="hasError('price', 'required')">Price is required</div>
+        <div *ngIf="hasError('price', 'min')">Price must be greater than 0</div>
+      </div>
+    </div>
+
+    <!-- Quantity Field -->
+    <div class="form-group">
+      <label for="quantity" class="form-label">Quantity</label>
+      <input
+        type="number"
+        id="quantity"
+        class="form-control"
+        formControlName="quantity"
+        [class.error]="isFieldInvalid('quantity')"
+        placeholder="Enter quantity"
+        min="0"
+      />
+
+      <div class="error-message" *ngIf="isFieldInvalid('quantity')">
+        <div *ngIf="hasError('quantity', 'required')">Quantity is required</div>
+        <div *ngIf="hasError('quantity', 'min')">Quantity cannot be negative</div>
+      </div>
+    </div>
+
+    <!-- Category Field -->
+    <div class="form-group">
+      <label for="category" class="form-label">Category</label>
+      <select
+        id="category"
+        class="form-control"
+        formControlName="category"
+        [class.error]="isFieldInvalid('category')"
+      >
+        <option value="">Select a category</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="books">Books</option>
+        <option value="home">Home & Garden</option>
+      </select>
+
+      <div class="error-message" *ngIf="isFieldInvalid('category')">
+        <div *ngIf="hasError('category', 'required')">Category is required</div>
+      </div>
+    </div>
+
+    <!-- Form Buttons -->
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+        Add Product
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="onReset()">Reset</button>
+      <button type="button" class="btn btn-secondary" (click)="onExit()">Exit</button>
+    </div>
+  </form>
+</div>
